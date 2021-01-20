@@ -20,6 +20,7 @@ type application struct {
 	infoLog  *log.Logger
 	items    *mysql.ItemModel
 	packages *mysql.PackageModel
+	farmers  *mysql.FarmerModel
 }
 
 func main() {
@@ -38,21 +39,18 @@ func main() {
 		infoLog:  infoLog,
 		items:    &mysql.ItemModel{DB: db},
 		packages: &mysql.PackageModel{DB: db},
+		farmers:  &mysql.FarmerModel{DB: db},
 	}
 
 	mux := pat.New()
 	mux.Get("/", http.HandlerFunc(showHomepage))
-	mux.Get("/items/:id", http.HandlerFunc(app.getItem))
+	mux.Get("/item/:id", http.HandlerFunc(app.getItem))
+	mux.Get("/farmer/:id", http.HandlerFunc(app.getFarmer))
 	mux.Get("/items/package/:id", http.HandlerFunc(app.getPackageItems))
-	mux.Get("/packages/:id", http.HandlerFunc(app.getPackage))
+	mux.Get("/package/:id", http.HandlerFunc(app.getPackage))
 
 	err = http.ListenAndServe(":4000", mux)
 	log.Fatal(err)
-}
-
-func test(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("test"))
-
 }
 
 func openDB(dsn string) (*sql.DB, error) {

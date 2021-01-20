@@ -1,9 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"runtime/debug"
+
+	"github.com/hellorichardpham/onlyfarms/pkg/models"
 )
 
 func (app *application) serverError(w http.ResponseWriter, err error) {
@@ -19,4 +22,12 @@ func (app *application) clientError(w http.ResponseWriter, status int) {
 
 func (app *application) notFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
+}
+
+func (app *application) handleError(w http.ResponseWriter, err error) {
+	if errors.Is(err, models.ErrNoRecord) {
+		app.notFound(w)
+	} else {
+		app.serverError(w, err)
+	}
 }

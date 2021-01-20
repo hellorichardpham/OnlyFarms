@@ -20,3 +20,15 @@ type Package struct {
 	ID   int
 	Name string
 }
+
+//Farmer ...
+type Farmer struct {
+	ID          int
+	Name        string
+	Street1     string
+	City        string
+	State       string
+	Zip         string
+	Picture     string
+	Description string
+}
