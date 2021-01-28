@@ -12,14 +12,15 @@ import (
 
 	"github.com/hellorichardpham/onlyfarms/user-service/controllers"
 	"github.com/hellorichardpham/onlyfarms/user-service/models/daos"
+	"github.com/hellorichardpham/onlyfarms/user-service/utilities"
 )
 
 type application struct {
 	users *daos.User
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("This is the home handler")
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "I am alive.")
 }
 
 func main() {
@@ -33,20 +34,21 @@ func main() {
 
 	defer db.Close()
 
-	// app := &application{
-	// 	users: &daos.User{DB: db},
-	// }
-
 	u := controllers.User{
 		UserDAO: &daos.User{DB: db},
 	}
+
 	router := mux.NewRouter()
-	router.HandleFunc("/", homeHandler).Methods("Get")
+	router.HandleFunc("/", healthCheck).Methods("Get")
 	router.HandleFunc("/user/{id}", u.GetUserByID).Methods("Get")
 	router.HandleFunc("/user", u.CreateUser).Methods("Post")
 	router.HandleFunc("/authenticate", u.AuthenticateUser).Methods("Post")
+	router.HandleFunc("/healthcheck", healthCheck)
+	router.HandleFunc("/configuration", utilities.Configuration)
 
-	err = http.ListenAndServe(":4000", router)
+	utilities.RegisterServiceWithConsul()
+	err = http.ListenAndServe(utilities.Port(), router)
+	fmt.Println("user-service has begun listening on port", utilities.Port())
 	log.Fatal(err)
 }
 

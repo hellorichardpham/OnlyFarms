@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -9,6 +10,7 @@ import (
 	"github.com/bmizerany/pat"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hellorichardpham/onlyfarms/product-service/pkg/models/mysql"
+	"github.com/hellorichardpham/onlyfarms/product-service/utilities"
 )
 
 func showHomepage(w http.ResponseWriter, r *http.Request) {
@@ -21,6 +23,10 @@ type application struct {
 	items    *mysql.ItemModel
 	packages *mysql.PackageModel
 	farmers  *mysql.FarmerModel
+}
+
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "I am alive in the produce-service.")
 }
 
 func main() {
@@ -48,8 +54,11 @@ func main() {
 	mux.Get("/farmer/:id", http.HandlerFunc(app.getFarmer))
 	mux.Get("/items/package/:id", http.HandlerFunc(app.getPackageItems))
 	mux.Get("/package/:id", http.HandlerFunc(app.getPackage))
+	mux.Get("/healthcheck", http.HandlerFunc(healthCheck))
+	mux.Get("/configuration", http.HandlerFunc(utilities.Configuration))
 
-	err = http.ListenAndServe(":4000", mux)
+	utilities.RegisterServiceWithConsul()
+	err = http.ListenAndServe(utilities.Port(), mux)
 	log.Fatal(err)
 }
 
