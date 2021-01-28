@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"runtime/debug"
 
-	"github.com/hellorichardpham/onlyfarms/pkg/models"
+	"github.com/hellorichardpham/onlyfarms/product-service/pkg/models"
 )
 
 func (app *application) serverError(w http.ResponseWriter, err error) {

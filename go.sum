@@ -3,6 +3,8 @@ github.com/bmizerany/pat v0.0.0-20170815010413-6226ea591a40/go.mod h1:8rLXio+Wji
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/golangcollege/sessions v1.2.0/go.mod h1:7iTf/FrZku0hWyjV95lES7abH89WBlyBjPyA1htnuks=
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/hellorichardpham/SnippetBox v0.0.0-20210104195603-f396356c10c2 h1:KDE16xeZNAXvZ869xQizGhmHOo1D1YFaF/IqBzVHRGY=
 github.com/hellorichardpham/SnippetBox v0.0.0-20210104195603-f396356c10c2/go.mod h1:GPj/EZFPSIhXyhpfoEG0HLn8RwbSxrMSE2mNCf4xRRs=
 github.com/justinas/alice v1.2.0/go.mod h1:fN5HRH/reO/zrUflLfTN43t3vXvKzvZIENsNEe7i7qA=

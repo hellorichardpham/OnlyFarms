@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/hellorichardpham/onlyfarms/pkg/models"
+	"github.com/hellorichardpham/onlyfarms/product-service/pkg/models"
 )
 
 type ItemModel struct {

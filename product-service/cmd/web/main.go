@@ -8,7 +8,7 @@ import (
 
 	"github.com/bmizerany/pat"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/hellorichardpham/onlyfarms/pkg/models/mysql"
+	"github.com/hellorichardpham/onlyfarms/product-service/pkg/models/mysql"
 )
 
 func showHomepage(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +27,7 @@ func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	db, err := openDB("root:password@/onlyfarms")
+	db, err := openDB("root:password@/onlyfarms?parseTime=true")
 	if err != nil {
 		errorLog.Fatal(err)
 	}
